@@ -1,0 +1,38 @@
+{
+  "name": "telegram-mcp",
+  "version": "0.1.0",
+  "description": "MCP server for sending notifications via Telegram and getting responses",
+  "type": "module",
+  "bin": {
+    "telegram-mcp": "./build/index.js"
+  },
+  "files": [
+    "build"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "prepare": "npm run build",
+    "watch": "tsc --watch",
+    "inspector": "npx @modelcontextprotocol/inspector build/index.js"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "0.6.0",
+    "axios": "^1.6.7"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.24",
+    "typescript": "^5.3.3"
+  },
+  "keywords": [
+    "mcp",
+    "cline",
+    "telegram",
+    "notifications"
+  ],
+  "author": "",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/telegram-mcp"
+  }
+}
