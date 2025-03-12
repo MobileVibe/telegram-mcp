@@ -52,22 +52,28 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
     tools: [
       {
         name: "send_notification",
-        description: "Send a text message notification to the user",
+        description: "Send a text message notification to the user. Supports Markdown formatting for messages. Use backticks for code blocks and inline code. Use square brackets for placeholders.",
         inputSchema: {
           type: "object",
           properties: {
             message: {
               type: "string",
-              description: "The message to send to the user"
+              description: "The message to send to the user. Supports Markdown formatting.",
+              examples: [
+                "Here's how to create a storage account:\n\n`az storage account create --name [storage-name] --resource-group [rg-name]`\n\nReplace:\n- `[storage-name]`: Your storage account name\n- `[rg-name]`: Your resource group",
+                "Would you like me to help you set up Azure DevOps integration?"
+              ]
             },
             project: {
               type: "string",
-              description: "The name of the project the LLM is working on"
+              description: "The name of the project the LLM is working on",
+              examples: ["azure-cli", "devops-setup", "terraform-config"]
             },
             urgency: {
               type: "string",
               enum: ["low", "medium", "high"],
-              description: "The urgency of the notification"
+              description: "The urgency of the notification. Affects message formatting:\n- high: Prefixes with 🚨 URGENT\n- medium: Prefixes with ⚠️\n- low: No prefix",
+              default: "medium"
             }
           },
           required: ["message", "project"]
@@ -75,17 +81,20 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
       },
       {
         name: "check_notification_response",
-        description: "Check if the user has responded to a notification",
+        description: "Check if the user has responded to a notification. Use this to wait for and retrieve user responses to previous notifications.",
         inputSchema: {
           type: "object",
           properties: {
             message_id: {
               type: "number",
-              description: "The ID of the message to check for responses"
+              description: "The ID of the message to check for responses. This is returned when sending a notification.",
+              examples: [12345]
             },
             timeout_seconds: {
               type: "number",
-              description: "How long to wait for a response before giving up (default: 30)"
+              description: "How long to wait for a response before giving up. The tool will poll for responses during this time.",
+              default: 30,
+              examples: [30, 60, 120]
             }
           },
           required: ["message_id"]
