@@ -10,7 +10,7 @@
     "build"
   ],
   "scripts": {
-    "build": "tsc",
+    "build": "tsc && node -e \"require('fs').chmodSync('build/index.js', '755')\"",
     "prepare": "npm run build",
     "watch": "tsc --watch",
     "inspector": "npx @modelcontextprotocol/inspector build/index.js"
@@ -29,10 +29,14 @@
     "telegram",
     "notifications"
   ],
-  "author": "",
+  "author": "Chris Harris chris@charristech.com",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/yourusername/telegram-mcp"
+    "url": "https://github.com/MobileVibe/telegram-mcp"
+  },
+  "homepage": "https://github.com/MobileVibe/telegram-mcp#readme",
+  "bugs": {
+    "url": "https://github.com/MobileVibe/telegram-mcp/issues"
   }
 }
