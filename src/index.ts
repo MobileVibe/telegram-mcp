@@ -159,7 +159,7 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
         // After sending notification, wait for response
         console.error(`Waiting for response to message ID: ${response.data.result.message_id}`);
 
-        const timeoutSeconds = 30; // 30 second timeout
+        const timeoutSeconds = 60; // 60 second timeout
         const startTime = Date.now();
         const timeoutMs = timeoutSeconds * 1000;
 
@@ -231,7 +231,7 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
 
     case "check_notification_response": {
       const messageId = Number(request.params.arguments?.message_id);
-      const timeoutSeconds = Number(request.params.arguments?.timeout_seconds || 30);  // Default to 30 seconds
+      const timeoutSeconds = Number(request.params.arguments?.timeout_seconds || 60);  // Default to 60 seconds
 
       if (isNaN(messageId) || messageId <= 0) {
         throw new Error("Valid message_id is required");
